@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QLabel,
     QPushButton, QSizePolicy, QTableWidget, QTableWidgetItem,
     QVBoxLayout, QWidget)
-import apprcc_rc
+import static.apprcc_rc
 
 class Ui_Form(object):
     def setupUi(self, Form):

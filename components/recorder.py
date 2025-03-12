@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QWidget, QApplication
 import sys
 
-from Form import Ui_Form
-from table import MTableWidget
+from static.Form import Ui_Form
+from components.table import MTableWidget
 
 
 class Recorder(QWidget, Ui_Form):
