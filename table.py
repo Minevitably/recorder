@@ -63,8 +63,9 @@ class MTableWidget(QWidget):
         layout.addWidget(self.table)
         self.setLayout(layout)
         self.setMinimumWidth(width)
+        self.setMinimumHeight(90)
         # FIXME: 暂时通过这个方式避免表格过大
-        self.setMaximumSize(800, 90)
+        self.setMaximumSize(800, 120)
 
     def newWordTable(self, total_width):
         """
