@@ -19,6 +19,7 @@ class Recorder(QWidget, Ui_Form):
         self.is_recording = None
         # 录音线程
         self.recorder_thread = None
+        # 音频帧
         self.frames = None
         # 表格组件
         self.tableWidget = None
@@ -36,11 +37,15 @@ class Recorder(QWidget, Ui_Form):
 
         self.initLabel()
 
+        # 载入评分模型
+        self.loadModel()
+
     def loadModel(self):
         """
         载入评分模型
         :return:
         """
+        # TODO: 该方法未完成
         print("载入评分模型")
 
     def selectSentence(self):
@@ -48,6 +53,7 @@ class Recorder(QWidget, Ui_Form):
         选取要朗读的句子
         :return:
         """
+        # TODO: 该方法未完成
         print("selectSentence")
 
     def record(self):
@@ -72,6 +78,11 @@ class Recorder(QWidget, Ui_Form):
             self.recorder_thread.start_recording()
 
     def handle_frames(self, frames):
+        """
+        录音线程回调，将录制好的帧返回给窗口线程
+        :param frames:
+        :return:
+        """
         # self.recorder_thread.save_recording("output.wav", frames)
         self.frames = frames
 
@@ -80,6 +91,7 @@ class Recorder(QWidget, Ui_Form):
         调用评分模型评分
         :return:
         """
+        # TODO: 该方法未完成
         print("evaluate")
         if self.is_recording:
             QMessageBox.warning(self, "警告", "请勿在录音的过程中评分")
@@ -124,6 +136,10 @@ class Recorder(QWidget, Ui_Form):
         self.evaluateBtn.clicked.connect(self.evaluate)
 
     def initLabel(self):
+        """
+        评分Label默认值使用0
+        :return:
+        """
         scoreDict = {}
         for label in MLabel:
             scoreDict[label.value] = "0"
