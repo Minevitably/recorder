@@ -1,21 +1,33 @@
 import sys
+from enum import Enum
 
 from PySide6 import QtCore
 from PySide6.QtWidgets import QApplication, QTableWidget, QVBoxLayout, QWidget, QLabel
 
 
+class MLabel(Enum):
+    PHONEME_LABEL = "phonemeLabel"
+    SENTENCE_ACC_LABEL = "sentenceAccLabel"
+    SENTENCE_COM_LABEL = "sentenceComLabel"
+    SENTENCE_FLU_LABEL = "sentenceFluLabel"
+    SENTENCE_PRO_LABEL = "sentenceProLabel"
+    SENTENCE_TOT_LABEL = "sentenceTotLabel"
+    WORD_TOTAL_LABEL = "wordTotalLabel"
+    WORD_STRESS_LABEL = "wordStressLabel"
+    WORD_ACCURACY_LABEL = "wordAccuracyLabel"
+
 class MTableWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.phonemeLabel = None
-        self.sentenceAccLabel = None
-        self.sentenceComLabel = None
-        self.sentenceFluLabel = None
-        self.sentenceProLabel = None
-        self.sentenceTotLabel = None
-        self.wordTotalLabel = None
-        self.wordStressLabel = None
-        self.wordAccuracyLabel = None
+        self.phonemeLabel = QLabel("Loading")
+        self.sentenceAccLabel = QLabel("Loading")
+        self.sentenceComLabel = QLabel("Loading")
+        self.sentenceFluLabel = QLabel("Loading")
+        self.sentenceProLabel = QLabel("Loading")
+        self.sentenceTotLabel = QLabel("Loading")
+        self.wordTotalLabel = QLabel("Loading")
+        self.wordStressLabel = QLabel("Loading")
+        self.wordAccuracyLabel = QLabel("Loading")
         self.setWindowTitle("Table Widget with QWidget")
         width = 800
         self.firstRowHeight = 60
@@ -42,14 +54,13 @@ class MTableWidget(QWidget):
         self.table.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)  # 隐藏垂直滚动条
         self.table.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)  # 隐藏水平滚动条
 
-        phonemeLabel = QLabel()
-        phonemeLabel.setText("98")
-        phonemeLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.phonemeLabel.setText("98")
+        self.phonemeLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
         wordTable = self.newWordTable(total_width * 0.3)
         sentenceTable = self.newSentenceTable(total_width * 0.5)
 
-        self.table.setCellWidget(0, 0, phonemeLabel)
+        self.table.setCellWidget(0, 0, self.phonemeLabel)
         self.table.setCellWidget(0, 1, wordTable)
         self.table.setCellWidget(0, 2, sentenceTable)
 
@@ -152,6 +163,21 @@ class MTableWidget(QWidget):
         sentenceTable.setMinimumWidth(total_width)
         return sentenceTable
 
+    def updateScore(self, scoreDict):
+        """
+        更新评分
+        :param scoreDict: 各项评分
+        :return: None
+        """
+        self.phonemeLabel.setText(scoreDict.get(MLabel.PHONEME_LABEL.value, ""))
+        self.sentenceAccLabel.setText(scoreDict.get(MLabel.SENTENCE_ACC_LABEL.value, ""))
+        self.sentenceComLabel.setText(scoreDict.get(MLabel.SENTENCE_COM_LABEL.value, ""))
+        self.sentenceFluLabel.setText(scoreDict.get(MLabel.SENTENCE_FLU_LABEL.value, ""))
+        self.sentenceProLabel.setText(scoreDict.get(MLabel.SENTENCE_PRO_LABEL.value, ""))
+        self.sentenceTotLabel.setText(scoreDict.get(MLabel.SENTENCE_TOT_LABEL.value, ""))
+        self.wordTotalLabel.setText(scoreDict.get(MLabel.WORD_TOTAL_LABEL.value, ""))
+        self.wordStressLabel.setText(scoreDict.get(MLabel.WORD_STRESS_LABEL.value, ""))
+        self.wordAccuracyLabel.setText(scoreDict.get(MLabel.WORD_ACCURACY_LABEL.value, ""))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
